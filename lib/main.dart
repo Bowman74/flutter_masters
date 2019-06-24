@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masters/fourthpage.dart';
 import 'package:flutter_masters/secondpage.dart';
 import 'package:flutter_masters/thirdpage.dart';
 
@@ -23,9 +24,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
-      routes: <String, WidgetBuilder> {
-        '/SecondPage': (BuildContext context) => SecondPage(title: 'Second Page'),
+      routes: <String, WidgetBuilder>{
+        '/SecondPage': (BuildContext context) =>
+            SecondPage(title: 'Second Page'),
         '/ThirdPage': (BuildContext context) => ThirdPage(title: 'Third Page'),
+        '/FourthPage': (BuildContext context) =>
+            FourthPage(title: 'Fourth Page'),
       },
     );
   }
@@ -49,24 +53,25 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   int _counter = 0;
-	AnimationController _controller;
-
-	@override
-	void initState(){
-	  super.initState();
-	  _controller = new AnimationController(
-		duration: const Duration(milliseconds: 1000), 
-		vsync: this,
-	  );
-	}
+  AnimationController _controller;
 
   @override
-	void dispose(){
-	  _controller.dispose();
-	  super.dispose();
-	}
+  void initState() {
+    super.initState();
+    _controller = new AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -117,54 +122,62 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               'You have pushed the button this many times:',
             ),
             Hero(
-              tag: 'count',
-              child: Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.display1,
-              ),
-              flightShuttleBuilder: (BuildContext flightContext,
-                  Animation<double> animation,
-                  HeroFlightDirection flightDirection,
-                  BuildContext fromHeroContext,
-                  BuildContext toHeroContext) {
-                    final Hero toHero = toHeroContext.widget;
-                    final Animation<double> curvedAnimation = new CurvedAnimation(
-                        parent: _controller,
-                        curve:  new Interval(
-                          0.2,
-                          0.8,
-                          curve: Curves.slowMiddle,
-                        ),
-                        reverseCurve:  new Interval(
-                          0.2,
-                          0.8,
-                          curve: Curves.slowMiddle,
-                        ),
-                      );
-                    return RotationTransition(
-                      turns: curvedAnimation,
-                      child: toHero.child,
-                    );
-                  }
-            ),
+                tag: 'count',
+                child: Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.display1,
+                ),
+                flightShuttleBuilder: (BuildContext flightContext,
+                    Animation<double> animation,
+                    HeroFlightDirection flightDirection,
+                    BuildContext fromHeroContext,
+                    BuildContext toHeroContext) {
+                  final Hero toHero = toHeroContext.widget;
+                  final Animation<double> curvedAnimation = new CurvedAnimation(
+                    parent: _controller,
+                    curve: new Interval(
+                      0.2,
+                      0.8,
+                      curve: Curves.slowMiddle,
+                    ),
+                    reverseCurve: new Interval(
+                      0.2,
+                      0.8,
+                      curve: Curves.slowMiddle,
+                    ),
+                  );
+                  return RotationTransition(
+                    turns: curvedAnimation,
+                    child: toHero.child,
+                  );
+                }),
             FlatButton(
-              child: Text('Second Page'),
-              onPressed: () async {
-                var result = await Navigator.of(context).pushNamed('/SecondPage', arguments: _counter);
-                setState(() {
-                  _counter  = result;
-                });
-              }
-            ),
+                child: Text('Second Page'),
+                onPressed: () async {
+                  var result = await Navigator.of(context)
+                      .pushNamed('/SecondPage', arguments: _counter);
+                  setState(() {
+                    _counter = result;
+                  });
+                }),
             FlatButton(
-              child: Text('Third Page'),
-              onPressed: () async {
-                var result = await Navigator.of(context).pushNamed('/ThirdPage');
-                setState(() {
-                  _counter  = result;
-                });
-              }
-            ),
+                child: Text('Third Page'),
+                onPressed: () async {
+                  var result =
+                      await Navigator.of(context).pushNamed('/ThirdPage');
+                  setState(() {
+                    _counter = result;
+                  });
+                }),
+            FlatButton(
+                child: Text('Fourth Page'),
+                onPressed: () async {
+                  var result =
+                      await Navigator.of(context).pushNamed('/FourthPage');
+                  setState(() {
+                    _counter = result;
+                  });
+                }),
           ],
         ),
       ),
