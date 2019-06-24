@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masters/secondpage.dart';
+import 'package:flutter_masters/thirdpage.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(title: 'Flutter Demo Home Page'),
       routes: <String, WidgetBuilder> {
         '/SecondPage': (BuildContext context) => SecondPage(title: 'Second Page'),
+        '/ThirdPage': (BuildContext context) => ThirdPage(title: 'Third Page'),
       },
     );
   }
@@ -149,6 +151,15 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               child: Text('Second Page'),
               onPressed: () async {
                 var result = await Navigator.of(context).pushNamed('/SecondPage', arguments: _counter);
+                setState(() {
+                  _counter  = result;
+                });
+              }
+            ),
+            FlatButton(
+              child: Text('Third Page'),
+              onPressed: () async {
+                var result = await Navigator.of(context).pushNamed('/ThirdPage');
                 setState(() {
                   _counter  = result;
                 });
