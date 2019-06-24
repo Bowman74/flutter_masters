@@ -13,21 +13,33 @@ class SecondPageState extends State<SecondPage> {
 
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
+  final int passedValue = ModalRoute.of(context).settings.arguments;
+
+    return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('second page'),
-            FlatButton(
-              child: Text('Go Back'),
-              onPressed: () => Navigator.pop(context)),
-          ],
+      body: WillPopScope(
+          onWillPop: () async {
+            Navigator.of(context).pop(passedValue + 1);
+            return false;
+        },
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('second page'),
+              FlatButton(
+                child: Text('Go Back'),
+                onPressed: () {
+                  Navigator.of(context).pop(passedValue + 1);
+                  }
+                ),
+              Text(passedValue.toString()),
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 }
