@@ -43,7 +43,11 @@ class FourthPageState extends State<FourthPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('gesture'),
+                  Expanded(
+                    child: Center(
+                      child: Text('gesture only'),
+                    ),
+                  ),
                   Listener(
                     onPointerDown: (e) {
                       Scaffold.of(builderContext).showSnackBar(new SnackBar(
@@ -60,7 +64,12 @@ class FourthPageState extends State<FourthPage> {
                     child: Text(
                       'pointer and gesture area',
                     ),
-                  )
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text('gesture only'),
+                    ),
+                  ),
                 ],
               ),
             ),
