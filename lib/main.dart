@@ -105,11 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
             FlatButton(
               child: Text('Second Page'),
               onPressed: () async {
-                var result = await Navigator.pushNamed(context, '/SecondPage', arguments: _counter);
+                var result = await Navigator.of(context).pushNamed('/SecondPage', arguments: _counter);
                 setState(() {
                   _counter  = result;
-                };
-              },
+                });
+              }
             ),
           ],
         ),
