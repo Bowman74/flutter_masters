@@ -22,6 +22,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: <String, WidgetBuilder> {
+        '/SecondPage': (BuildContext context) => SecondPage(title: 'Second Page'),
+    },
     );
   }
 }
@@ -101,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             FlatButton(
               child: Text('Second Page'),
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SecondPage(title: 'Second Page'))),
+              onPressed: () => Navigator.pushNamed(context, '/SecondPage'),
             ),
           ],
         ),
