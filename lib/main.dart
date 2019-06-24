@@ -75,6 +75,29 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+            drawer: new Drawer(
+        child: Column(mainAxisSize: MainAxisSize.max, crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(color: Colors.blue,
+              child: new DrawerHeader(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Sample app!', style: TextStyle(color: Colors.white, fontSize: 16)),
+                    ],
+                ),
+              ),
+            ),
+            ListTile(title: Text('Second Page'), onTap: () async {
+              Navigator.pop(context);
+              var result = await Navigator.of(context)
+                  .pushNamed('/SecondPage', arguments: _counter);
+              setState(() {
+                _counter = result;
+              });
+            }),
+          ]
+        ),
+      ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -101,15 +124,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.display1,
-            ),
-            FlatButton(
-              child: Text('Second Page'),
-              onPressed: () async {
-                var result = await Navigator.of(context).pushNamed('/SecondPage', arguments: _counter);
-                setState(() {
-                  _counter  = result;
-                });
-              }
             ),
           ],
         ),
