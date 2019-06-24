@@ -47,8 +47,24 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   int _counter = 0;
+	AnimationController _controller;
+
+	@override
+	void initState(){
+	  super.initState();
+	  _controller = new AnimationController(
+		duration: const Duration(milliseconds: 1000), 
+		vsync: this,
+	  );
+	}
+
+  @override
+	void dispose(){
+	  _controller.dispose();
+	  super.dispose();
+	}
 
   void _incrementCounter() {
     setState(() {
@@ -98,9 +114,36 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+            Hero(
+              tag: 'count',
+              child: Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.display1,
+              ),
+              flightShuttleBuilder: (BuildContext flightContext,
+                  Animation<double> animation,
+                  HeroFlightDirection flightDirection,
+                  BuildContext fromHeroContext,
+                  BuildContext toHeroContext) {
+                    final Hero toHero = toHeroContext.widget;
+                    final Animation<double> curvedAnimation = new CurvedAnimation(
+                        parent: _controller,
+                        curve:  new Interval(
+                          0.2,
+                          0.8,
+                          curve: Curves.slowMiddle,
+                        ),
+                        reverseCurve:  new Interval(
+                          0.2,
+                          0.8,
+                          curve: Curves.slowMiddle,
+                        ),
+                      );
+                    return RotationTransition(
+                      turns: curvedAnimation,
+                      child: toHero.child,
+                    );
+                  }
             ),
             FlatButton(
               child: Text('Second Page'),

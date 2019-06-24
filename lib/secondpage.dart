@@ -35,7 +35,21 @@ class SecondPageState extends State<SecondPage> {
                   Navigator.of(context).pop(passedValue + 1);
                   }
                 ),
-              Text(passedValue.toString()),
+              Hero(
+                tag: 'count',
+                child:Text(passedValue.toString()),
+                flightShuttleBuilder: (BuildContext flightContext,
+                  Animation<double> animation,
+                  HeroFlightDirection flightDirection,
+                  BuildContext fromHeroContext,
+                  BuildContext toHeroContext) {
+                    final Hero toHero = toHeroContext.widget;
+                    return RotationTransition(
+                      turns: animation,
+                      child: toHero.child,
+                    );
+                  }
+              ),
             ],
           ),
         ),
