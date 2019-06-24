@@ -24,7 +24,7 @@ class SecondPageState extends State<SecondPage> {
             Text('second page'),
             FlatButton(
               child: Text('Go Back'),
-              onPressed: () => Navigator.pop(context)),
+              onPressed: () => Navigator.of(context).pop()),
           ],
         ),
       ),

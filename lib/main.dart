@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             FlatButton(
               child: Text('Second Page'),
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SecondPage(title: 'Second Page'))),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => SecondPage(title: 'Second Page'))),
             ),
           ],
         ),
