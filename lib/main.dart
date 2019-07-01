@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_masters/fourthpage.dart';
+import 'package:flutter_masters/scaffoldpage.dart';
 import 'package:flutter_masters/secondpage.dart';
 import 'package:flutter_masters/thirdpage.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  debugPaintSizeEnabled=true;
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowMaterialGrid: false,
+      showPerformanceOverlay: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -30,6 +37,8 @@ class MyApp extends StatelessWidget {
         '/ThirdPage': (BuildContext context) => ThirdPage(title: 'Third Page'),
         '/FourthPage': (BuildContext context) =>
             FourthPage(title: 'Fourth Page'),
+        '/ScaffoldPage': (BuildContext context) =>
+            ScaffoldPage(title: 'Scaffold Page'),
       },
     );
   }
@@ -125,6 +134,10 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('Fourth Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/FourthPage');
+            }),
+            ListTile(title: Text('Scaffold Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/ScaffoldPage');
             }),
           ]
         ),
