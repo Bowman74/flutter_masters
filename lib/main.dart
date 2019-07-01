@@ -4,6 +4,7 @@ import 'package:flutter_masters/fourthpage.dart';
 import 'package:flutter_masters/rowcolpage.dart';
 import 'package:flutter_masters/scaffoldpage.dart';
 import 'package:flutter_masters/secondpage.dart';
+import 'package:flutter_masters/stackpage.dart';
 import 'package:flutter_masters/thirdpage.dart';
 
 void main() {
@@ -42,6 +43,8 @@ class MyApp extends StatelessWidget {
             ScaffoldPage(title: 'Scaffold Page'),
         '/RowColPage': (BuildContext context) =>
             RowColPage(title: 'RowColPage Page'),
+         '/StackPage': (BuildContext context) =>
+            StackPage(title: 'StackPage Page'),
       },
     );
   }
@@ -146,7 +149,10 @@ class _MyHomePageState extends State<MyHomePage>
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/RowColPage');
             }),
-          ]
+            ListTile(title: Text('Stack Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/StackPage');
+            }),          ]
         ),
       ),
       body: Center(
