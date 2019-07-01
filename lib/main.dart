@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_masters/fourthpage.dart';
+import 'package:flutter_masters/rowcolpage.dart';
 import 'package:flutter_masters/scaffoldpage.dart';
 import 'package:flutter_masters/secondpage.dart';
 import 'package:flutter_masters/thirdpage.dart';
 
 void main() {
-  debugPaintSizeEnabled=true;
+  debugPaintSizeEnabled=false;
   runApp(MyApp());
 }
 
@@ -39,6 +40,8 @@ class MyApp extends StatelessWidget {
             FourthPage(title: 'Fourth Page'),
         '/ScaffoldPage': (BuildContext context) =>
             ScaffoldPage(title: 'Scaffold Page'),
+        '/RowColPage': (BuildContext context) =>
+            RowColPage(title: 'RowColPage Page'),
       },
     );
   }
@@ -138,6 +141,10 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('Scaffold Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/ScaffoldPage');
+            }),
+            ListTile(title: Text('Row Column Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/RowColPage');
             }),
           ]
         ),
