@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_masters/fourthpage.dart';
+import 'package:flutter_masters/gridtablepage.dart';
 import 'package:flutter_masters/rowcolpage.dart';
 import 'package:flutter_masters/scaffoldpage.dart';
 import 'package:flutter_masters/secondpage.dart';
@@ -45,7 +46,8 @@ class MyApp extends StatelessWidget {
             RowColPage(title: 'RowColPage Page'),
          '/StackPage': (BuildContext context) =>
             StackPage(title: 'StackPage Page'),
-      },
+         '/GridTablePage': (BuildContext context) =>
+            GridTablePage(title: 'Grid Table Page'),      },
     );
   }
 }
@@ -152,7 +154,12 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('Stack Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/StackPage');
-            }),          ]
+            }),
+            ListTile(title: Text('Grid Table Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/GridTablePage');
+            }), 
+          ]
         ),
       ),
       body: Center(
