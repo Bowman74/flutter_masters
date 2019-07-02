@@ -7,6 +7,7 @@ import 'package:flutter_masters/scaffoldpage.dart';
 import 'package:flutter_masters/secondpage.dart';
 import 'package:flutter_masters/stackpage.dart';
 import 'package:flutter_masters/thirdpage.dart';
+import 'package:flutter_masters/wrappage.dart';
 
 import 'ListViewPage.dart';
 import 'flowpage.dart';
@@ -55,6 +56,8 @@ class MyApp extends StatelessWidget {
             FlowPage(title: 'Flow Page'),
         '/ListViewPage': (BuildContext context) =>
             ListViewPage(title: 'ListView Page'),
+        '/WrapPage': (BuildContext context) =>
+            WrapPage(title: 'Wrap Page'),
       },
     );
   }
@@ -174,6 +177,10 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('ListView Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/ListViewPage');
+            }),
+            ListTile(title: Text('Wrap Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/WrapPage');
             }),
           ]
         ),

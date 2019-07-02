@@ -5,13 +5,22 @@ class ListViewPage extends StatelessWidget {
   ListViewPage({Key key, this.title}) : super(key: key);
 
   final String title;
-  final List<ListItem> items = <ListItem>[ListItem(Colors.amber, 'Item 1'), ListItem(Colors.black, 'Item 2'), ListItem(Colors.blue, 'Item 3'), ListItem(Colors.cyan, 'Item 4'), ListItem(Colors.deepOrange, 'Item 5'), ListItem(Colors.red, 'Item 6'), ListItem(Colors.teal, 'Item 7'), ListItem(Colors.white, 'Item 8'), ListItem(Colors.red, 'Item 9')];
+  final List<ListItem> items = <ListItem>[
+    ListItem(Colors.amber, 'Item 1'), 
+    ListItem(Colors.black, 'Item 2'), 
+    ListItem(Colors.blue, 'Item 3'), 
+    ListItem(Colors.cyan, 'Item 4'), 
+    ListItem(Colors.deepOrange, 'Item 5'), 
+    ListItem(Colors.red, 'Item 6'), 
+    ListItem(Colors.teal, 'Item 7'), 
+    ListItem(Colors.white, 'Item 8'), 
+    ListItem(Colors.purple, 'Item 9')];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Top AppBar'),
+        title: Text(title),
       ),
       body: ListView.builder(
         scrollDirection: Axis.vertical,
