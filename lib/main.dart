@@ -8,6 +8,8 @@ import 'package:flutter_masters/secondpage.dart';
 import 'package:flutter_masters/stackpage.dart';
 import 'package:flutter_masters/thirdpage.dart';
 
+import 'flowpage.dart';
+
 void main() {
   debugPaintSizeEnabled=false;
   runApp(MyApp());
@@ -44,10 +46,13 @@ class MyApp extends StatelessWidget {
             ScaffoldPage(title: 'Scaffold Page'),
         '/RowColPage': (BuildContext context) =>
             RowColPage(title: 'RowColPage Page'),
-         '/StackPage': (BuildContext context) =>
+        '/StackPage': (BuildContext context) =>
             StackPage(title: 'StackPage Page'),
-         '/GridTablePage': (BuildContext context) =>
-            GridTablePage(title: 'Grid Table Page'),      },
+        '/GridTablePage': (BuildContext context) =>
+            GridTablePage(title: 'Grid Table Page'),
+        '/FlowPage': (BuildContext context) =>
+            FlowPage(title: 'Flow Page'),
+      },
     );
   }
 }
@@ -159,6 +164,10 @@ class _MyHomePageState extends State<MyHomePage>
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/GridTablePage');
             }), 
+            ListTile(title: Text('Flow Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/FlowPage');
+            }),
           ]
         ),
       ),

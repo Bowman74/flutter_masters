@@ -13,8 +13,6 @@ class GridTablePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
             child: GridView.count(
