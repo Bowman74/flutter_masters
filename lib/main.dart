@@ -11,6 +11,7 @@ import 'package:flutter_masters/wrappage.dart';
 
 import 'ListViewPage.dart';
 import 'flowpage.dart';
+import 'isolatepage.dart';
 
 void main() {
   debugPaintSizeEnabled=false;
@@ -58,6 +59,8 @@ class MyApp extends StatelessWidget {
             ListViewPage(title: 'ListView Page'),
         '/WrapPage': (BuildContext context) =>
             WrapPage(title: 'Wrap Page'),
+        '/IsolatePage': (BuildContext context) =>
+            IsolatePage(title: 'Isolate Page'),
       },
     );
   }
@@ -181,6 +184,10 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('Wrap Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/WrapPage');
+            }),
+            ListTile(title: Text('Isolate Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/IsolatePage');
             }),
           ]
         ),
