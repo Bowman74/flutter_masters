@@ -11,6 +11,7 @@ import 'package:flutter_masters/wrappage.dart';
 
 import 'ListViewPage.dart';
 import 'flowpage.dart';
+import 'futurepage.dart';
 import 'isolatepage.dart';
 
 void main() {
@@ -61,6 +62,8 @@ class MyApp extends StatelessWidget {
             WrapPage(title: 'Wrap Page'),
         '/IsolatePage': (BuildContext context) =>
             IsolatePage(title: 'Isolate Page'),
+        '/FuturePage': (BuildContext context) =>
+            FuturePage(title: 'Future Page'),
       },
     );
   }
@@ -188,6 +191,10 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('Isolate Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/IsolatePage');
+            }),
+            ListTile(title: Text('Future Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/FuturePage');
             }),
           ]
         ),
