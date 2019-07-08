@@ -32,13 +32,12 @@ class IsolatePageState extends State<IsolatePage> {
               FlatButton(
                 child: 
                   Text('Start Isolate'),
-                onPressed: () {
+                onPressed: () async {
                   var myPort = ReceivePort();
-                  Isolate.spawn(longRunningTask, myPort.sendPort);
+                  Isolate.spawn<IsolateParameter>(longRunningTask, IsolateParameter(myPort.sendPort, currentCount));
 
-                  setState(() {
-                    currentCount = currentCount;
-                  });
+                  currentCount = await myPort.first;
+                  setState(() {});
                 },
               )
             ]
@@ -47,13 +46,23 @@ class IsolatePageState extends State<IsolatePage> {
       );
   }
 
-  static void longRunningTask(SendPort sendPort) async {
+  static void longRunningTask(IsolateParameter parameter) async {
     var a = 0;
     for (var i = 0; i < 100000; i++) {
       a ++;
     }
-    debugPrint(a.toString());
-    currentCount++;
-    debugPrint(currentCount.toString());
+    var currentCount = parameter.currentValue;
+
+    parameter.sendPort.send(++currentCount);
   }
+}
+
+class IsolateParameter {
+  final SendPort _myPort;
+  final int _currentValue;
+  IsolateParameter(this._myPort, this._currentValue);
+
+  SendPort get sendPort => this._myPort;
+
+  int get currentValue => this._currentValue;
 }
