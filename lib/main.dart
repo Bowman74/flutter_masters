@@ -10,9 +10,11 @@ import 'package:flutter_masters/thirdpage.dart';
 import 'package:flutter_masters/wrappage.dart';
 
 import 'ListViewPage.dart';
+import 'classes/messageservice.dart';
 import 'flowpage.dart';
 import 'futurepage.dart';
 import 'isolatepage.dart';
+import 'messagequeuepage.dart';
 
 void main() {
   debugPaintSizeEnabled=false;
@@ -64,6 +66,8 @@ class MyApp extends StatelessWidget {
             IsolatePage(title: 'Isolate Page'),
         '/FuturePage': (BuildContext context) =>
             FuturePage(title: 'Future Page'),
+        '/MessageQueuePage': (BuildContext context) =>
+            MessageQueuePage(title: 'Message Queue Page'),
       },
     );
   }
@@ -71,15 +75,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -91,6 +86,15 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   int _counter = 0;
   AnimationController _controller;
+
+  final messageService = MessageService();
+
+  _MyHomePageState() {
+      var subscription = Subscription('incrementCounter', (_) {
+      _incrementCounter();
+    });
+    messageService.subscribe(subscription);
+  }
 
   @override
   void initState() {
@@ -144,22 +148,6 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
               ),
             ),
-            ListTile(title: Text('Second Page'), onTap: () async {
-              Navigator.pop(context);
-              var result = await Navigator.of(context)
-                  .pushNamed('/SecondPage', arguments: _counter);
-              setState(() {
-                _counter = result;
-              });
-            }),
-            ListTile(title: Text('Third Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/ThirdPage');
-            }),
-            ListTile(title: Text('Fourth Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/FourthPage');
-            }),
             ListTile(title: Text('Scaffold Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/ScaffoldPage');
@@ -195,6 +183,10 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('Future Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/FuturePage');
+            }),
+            ListTile(title: Text('Message Queue Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/MessageQueuePage');
             }),
           ]
         ),
