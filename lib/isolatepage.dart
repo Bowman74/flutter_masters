@@ -12,7 +12,7 @@ class IsolatePage extends StatefulWidget {
 }
 
 class IsolatePageState extends State<IsolatePage> {
-  static int currentCount = 0;
+  static int currentCount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,8 @@ class IsolatePageState extends State<IsolatePage> {
               FlatButton(
                 child: 
                   Text('Start Isolate'),
-                onPressed: () {
-                  var myPort = ReceivePort();
-                  Isolate.spawn(longRunningTask, myPort.sendPort);
+                onPressed: () async {
+                  await Isolate.spawn<int>(longRunningTask, currentCount);
 
                   setState(() {
                     currentCount = currentCount;
@@ -47,7 +46,7 @@ class IsolatePageState extends State<IsolatePage> {
       );
   }
 
-  static void longRunningTask(SendPort sendPort) async {
+  static Future<int> longRunningTask(int countParameter) async {
     var a = 0;
     for (var i = 0; i < 100000; i++) {
       a ++;
@@ -55,5 +54,7 @@ class IsolatePageState extends State<IsolatePage> {
     debugPrint(a.toString());
     currentCount++;
     debugPrint(currentCount.toString());
+    debugPrint(countParameter.toString());
+    return countParameter;
   }
 }
