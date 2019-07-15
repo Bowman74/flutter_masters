@@ -4,6 +4,7 @@ import 'package:flutter_masters/simplestate.dart';
 
 import 'ephemeralstatepage.dart';
 import 'inheritedwidgetstate.dart';
+import 'providerstate.dart';
 
 void main() {
   debugPaintSizeEnabled=false;
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
             SimpleStatePage(title: 'Simple State Page'),
         '/InheritedWidgetPage': (BuildContext context) =>
             InheritedWidgetPage(title: 'Inherited Widget Page'),
+        '/ProviderPage': (BuildContext context) =>
+            ProviderPage(title: 'Provider Page'),
       },
     );
   }
@@ -120,6 +123,10 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('Inherited Widget Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/InheritedWidgetPage');
+            }),
+            ListTile(title: Text('Provider Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/ProviderPage');
             }),
           ]
         ),
