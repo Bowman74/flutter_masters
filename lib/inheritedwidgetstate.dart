@@ -1,21 +1,19 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SimpleStatePage extends StatefulWidget {
-  SimpleStatePage({Key key, this.title}) : super(key: key);
+class InheritedWidgetPage extends StatefulWidget {
+  InheritedWidgetPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  SimpleStatePageState createState() => SimpleStatePageState();
+  InheritedWidgetPageState createState() => InheritedWidgetPageState();
 }
 
-class SimpleStatePageState extends State<SimpleStatePage> {
+class InheritedWidgetPageState extends State<InheritedWidgetPage> {
   var _people = PeopleModel();
 
-  SimpleStatePageState() {
+  InheritedWidgetPageState() {
     var person = _people.newPerson();
     person.firstName = 'Kevin';
     person.lastName = 'Ford';
@@ -31,39 +29,53 @@ class SimpleStatePageState extends State<SimpleStatePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  padding: const EdgeInsets.all(8.0),
-                  itemCount: _people.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return PersonRow(_people.getPerson(index));
-                  }
+        body: PeopleWidget(_people, 
+          Center(
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.all(8.0),
+                    itemCount: _people.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return PersonRow(PeopleWidget.of(context).people.getPerson(index));
+                    }
+                  ),
                 ),
-              ),
-              AddPerson(_people),
-            ]
-          ),
+                AddPerson(),
+              ]
+            ),
+          )
         )
       );
   }
 }
 
-class AddPerson extends StatelessWidget {
-  AddPerson(this._people);
-  
-  final PeopleModel _people;
+class PeopleWidget extends InheritedWidget {
+  final PeopleModel people;
 
+  PeopleWidget(this.people, Widget child) : super(child: child);
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget)  => true;
+
+  static PeopleWidget of(BuildContext context) {
+    return context.inheritFromWidgetOfExactType(PeopleWidget);
+  }
+
+}
+
+class AddPerson extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return FlatButton(
       child: 
         Text('Add Person'),
       onPressed: () {
-        var person = _people.newPerson();
+        var people = PeopleWidget.of(context).people;
+        var person = people.newPerson();
         person.firstName = 'aaa';
         person.lastName = 'bbb';
       },
@@ -150,6 +162,4 @@ class PersonModel extends ChangeNotifier {
       this.notifyListeners();
     }
   }
-
-
 }
