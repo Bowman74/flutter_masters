@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_masters/fourthpage.dart';
-import 'package:flutter_masters/gridtablepage.dart';
-import 'package:flutter_masters/rowcolpage.dart';
-import 'package:flutter_masters/scaffoldpage.dart';
-import 'package:flutter_masters/secondpage.dart';
-import 'package:flutter_masters/stackpage.dart';
-import 'package:flutter_masters/thirdpage.dart';
-import 'package:flutter_masters/wrappage.dart';
 
-import 'ListViewPage.dart';
-import 'classes/messageservice.dart';
-import 'flowpage.dart';
-import 'futurepage.dart';
-import 'isolatepage.dart';
-import 'messagequeuepage.dart';
+import 'ephemeralstatepage.dart';
 
 void main() {
   debugPaintSizeEnabled=false;
@@ -43,31 +30,8 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
       routes: <String, WidgetBuilder>{
-        '/SecondPage': (BuildContext context) =>
-            SecondPage(title: 'Second Page'),
-        '/ThirdPage': (BuildContext context) => ThirdPage(title: 'Third Page'),
-        '/FourthPage': (BuildContext context) =>
-            FourthPage(title: 'Fourth Page'),
-        '/ScaffoldPage': (BuildContext context) =>
-            ScaffoldPage(title: 'Scaffold Page'),
-        '/RowColPage': (BuildContext context) =>
-            RowColPage(title: 'RowColPage Page'),
-        '/StackPage': (BuildContext context) =>
-            StackPage(title: 'StackPage Page'),
-        '/GridTablePage': (BuildContext context) =>
-            GridTablePage(title: 'Grid Table Page'),
-        '/FlowPage': (BuildContext context) =>
-            FlowPage(title: 'Flow Page'),
-        '/ListViewPage': (BuildContext context) =>
-            ListViewPage(title: 'ListView Page'),
-        '/WrapPage': (BuildContext context) =>
-            WrapPage(title: 'Wrap Page'),
-        '/IsolatePage': (BuildContext context) =>
-            IsolatePage(title: 'Isolate Page'),
-        '/FuturePage': (BuildContext context) =>
-            FuturePage(title: 'Future Page'),
-        '/MessageQueuePage': (BuildContext context) =>
-            MessageQueuePage(title: 'Message Queue Page'),
+        '/EphemeralStatePage': (BuildContext context) =>
+            EphemeralStatePage(title: 'Ephemeral State Page'),
       },
     );
   }
@@ -86,15 +50,6 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   int _counter = 0;
   AnimationController _controller;
-
-  final messageService = MessageService();
-
-  _MyHomePageState() {
-      var subscription = Subscription('incrementCounter', (_) {
-      _incrementCounter();
-    });
-    messageService.subscribe(subscription);
-  }
 
   @override
   void initState() {
@@ -148,45 +103,9 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
               ),
             ),
-            ListTile(title: Text('Scaffold Page'), onTap: () async {
+            ListTile(title: Text('Ephemeral State Page'), onTap: () async {
               Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/ScaffoldPage');
-            }),
-            ListTile(title: Text('Row Column Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/RowColPage');
-            }),
-            ListTile(title: Text('Stack Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/StackPage');
-            }),
-            ListTile(title: Text('Grid Table Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/GridTablePage');
-            }), 
-            ListTile(title: Text('Flow Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/FlowPage');
-            }),
-            ListTile(title: Text('ListView Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/ListViewPage');
-            }),
-            ListTile(title: Text('Wrap Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/WrapPage');
-            }),
-            ListTile(title: Text('Isolate Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/IsolatePage');
-            }),
-            ListTile(title: Text('Future Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/FuturePage');
-            }),
-            ListTile(title: Text('Message Queue Page'), onTap: () async {
-              Navigator.pop(context);
-              await Navigator.of(context).pushNamed('/MessageQueuePage');
+              await Navigator.of(context).pushNamed('/EphemeralStatePage');
             }),
           ]
         ),
