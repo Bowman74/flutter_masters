@@ -15,6 +15,16 @@ class SimpleStatePage extends StatefulWidget {
 class SimpleStatePageState extends State<SimpleStatePage> {
   var _people = PeopleModel();
 
+  SimpleStatePageState() {
+    var person = _people.newPerson();
+    person.firstName = 'Kevin';
+    person.lastName = 'Ford';
+
+    _people.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,17 +35,16 @@ class SimpleStatePageState extends State<SimpleStatePage> {
           child: Column(
             children: <Widget>[
               Expanded(
-                child: ListView.builder(itemBuilder: (BuildContext context, int index) {},
-
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  padding: const EdgeInsets.all(8.0),
+                  itemCount: _people.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return PersonRow(_people.getPerson(index));
+                  }
                 ),
               ),
-              FlatButton(
-                child: 
-                  Text('Refresh'),
-                onPressed: () {
-                  setState(() {});
-                },
-              ),
+              AddPerson(_people),
             ]
           ),
         )
@@ -43,10 +52,70 @@ class SimpleStatePageState extends State<SimpleStatePage> {
   }
 }
 
+class AddPerson extends StatelessWidget {
+  AddPerson(this._people);
+  
+  final PeopleModel _people;
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      child: 
+        Text('Add Person'),
+      onPressed: () {
+        var person = _people.newPerson();
+        person.firstName = 'aaa';
+        person.lastName = 'bbb';
+      },
+    );
+  }
+}
+
+class PersonRow extends StatefulWidget {
+  final PersonModel _person;
+  PersonRow(this._person);
+
+  @override
+  PersonRowState createState() {
+    return PersonRowState(_person);
+  }
+}
+
+class PersonRowState extends State<PersonRow> {
+  final PersonModel _person;
+
+  PersonRowState(this._person) {
+    _person.addListener(listener);
+  }
+
+  listener() {
+      setState(() {});
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(_person.firstName + ' ' + _person.lastName),
+    );
+  }
+
+  @override
+  void dispose() {
+    _person.removeListener(listener);
+    super.dispose();
+  }
+
+}
+
+
 class PeopleModel extends ChangeNotifier {
   List<PersonModel> _people = List<PersonModel>();
 
-  Iterable get people => _people.toSet();
+  PersonModel getPerson(int index) {
+    return _people[index];
+  }
+
+  int get length => _people.length;
 
   PersonModel newPerson() {
     PersonModel _returnValue = PersonModel(_people.length + 1);

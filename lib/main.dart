@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_masters/simplestate.dart';
 
 import 'ephemeralstatepage.dart';
 
@@ -32,6 +33,8 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/EphemeralStatePage': (BuildContext context) =>
             EphemeralStatePage(title: 'Ephemeral State Page'),
+        '/SimpleStatePage': (BuildContext context) =>
+            SimpleStatePage(title: 'Simple State Page'),
       },
     );
   }
@@ -106,6 +109,10 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('Ephemeral State Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/EphemeralStatePage');
+            }),
+            ListTile(title: Text('Simple State Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/SimpleStatePage');
             }),
           ]
         ),
