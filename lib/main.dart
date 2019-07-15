@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_masters/scopedmodelstate.dart';
 import 'package:flutter_masters/simplestate.dart';
 
 import 'ephemeralstatepage.dart';
@@ -41,6 +42,8 @@ class MyApp extends StatelessWidget {
             InheritedWidgetPage(title: 'Inherited Widget Page'),
         '/ProviderPage': (BuildContext context) =>
             ProviderPage(title: 'Provider Page'),
+        '/ScopedModelPage': (BuildContext context) =>
+            ScopedModelPage(title: 'Scoped Model Page'),
       },
     );
   }
@@ -127,6 +130,10 @@ class _MyHomePageState extends State<MyHomePage>
             ListTile(title: Text('Provider Page'), onTap: () async {
               Navigator.pop(context);
               await Navigator.of(context).pushNamed('/ProviderPage');
+            }),
+            ListTile(title: Text('Scoped Model Page'), onTap: () async {
+              Navigator.pop(context);
+              await Navigator.of(context).pushNamed('/ScopedModelPage');
             }),
           ]
         ),
